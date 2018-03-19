@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "outDir": "dist",
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "strict": true,
+        "noUnusedParameters": true
+    },
+    "files": [
+        "./index.ts",
+        "./declarations.d.ts"
+    ],
+    "include": ["src"],
+    "exclude": ["node_modules"]
+}
