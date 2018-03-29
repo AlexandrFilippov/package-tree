@@ -1,3 +1,5 @@
+// TODO: 2 spaces
+
 import * as assert from 'assert';
 import * as fs from 'fs';
 import * as readInstalled from 'read-installed';
@@ -7,11 +9,8 @@ import ErrnoException = NodeJS.ErrnoException;
 const dirName: string = 'package-tree-output';
 const fileName: string = 'package-tree';
 
-export default function(path: string, filter: string, extension: string, depth: number) {
-    const where = path;
-    const regexp = new RegExp(filter);
-
-    read(where, function(error: null | ErrnoException, data: IRootPackage) {
+export default function(path: string, filter: RegExp, extension: string, depth: number) {
+    read(path, function(error: null | ErrnoException, data: IRootPackage) {
         if (error) {
             throw error
         }
@@ -25,7 +24,7 @@ export default function(path: string, filter: string, extension: string, depth: 
             throw 'Доступные расширения: txt, html'
         }
 
-        const result = extensionsConfig[extension](data, depth, regexp);
+        const result = extensionsConfig[extension](data, depth, filter);
 
         if (fs.existsSync(path + '/' + dirName)) {
             writeResult(path, extension, result);
