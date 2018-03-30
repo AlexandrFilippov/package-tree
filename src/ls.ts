@@ -1,4 +1,5 @@
 // TODO: 2 spaces
+// TODO: deprecated
 
 import * as assert from 'assert';
 import * as fs from 'fs';

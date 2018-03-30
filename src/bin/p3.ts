@@ -1,20 +1,25 @@
-import ls from './src/ls';
+import ls from '../ls';
   // { getDependencies, baseFormater, htmlReporter }
 
 if (process.argv.length <= 2) {
-  console.log('Запуск: ' + __filename + ' {path/to/package.json} ' + '"^(react|redux|ufs).*$"');
+  // tslint:disable-next-line:no-console
+  console.log(
+    'Запуск: '
+    + __filename
+    + ' {path/to/package.json} '
+    + '"^(react|redux|ufs).*$"'
+  );
   process.exit(-1);
 }
 
 const packagePath = process.argv[2];
-// const filter = process.argv[3] && process.argv[3].length ? process.argv[3] : '.*';
 const filter = process.argv[3] ? new RegExp(process.argv[3]) : /.*/;
 const extension = process.argv[4];
 const depth = process.argv[5] == null ? Number.MAX_VALUE : +process.argv[5];
 
 ls(packagePath, filter, extension, depth);
 
-/* 
+/*
   getDependencies(packagePath, filter, depth)
     .then((objDeps) => baseFormater)
     .then((formatDeps) => htmlReporter);
@@ -23,9 +28,9 @@ ls(packagePath, filter, extension, depth);
 /*
   objDeps = {
     input: {
-      packagePath: 
-      filter: 
-      depth: 
+      packagePath: String
+      filter: String
+      depth: Number
     },
     output: {
       name: 'aurora',
@@ -54,6 +59,3 @@ ls(packagePath, filter, extension, depth);
     }
   }
 */
-
-
-
