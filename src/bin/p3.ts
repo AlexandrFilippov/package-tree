@@ -1,23 +1,10 @@
-import ls from '../ls';
-  // { getDependencies, baseFormater, htmlReporter }
-
-if (process.argv.length <= 2) {
-  // tslint:disable-next-line:no-console
-  console.log(
-    'Запуск: '
-    + __filename
-    + ' {path/to/package.json} '
-    + '"^(react|redux|ufs).*$"'
-  );
-  process.exit(-1);
-}
+import { getDependencies } from './../index';
 
 const packagePath = process.argv[2];
 const filter = process.argv[3] ? new RegExp(process.argv[3]) : /.*/;
-const extension = process.argv[4];
-const depth = process.argv[5] == null ? Number.MAX_VALUE : +process.argv[5];
+const depth = process.argv[4];
 
-ls(packagePath, filter, extension, depth);
+getDependencies({ pathToPackageJson: packagePath, depth: +depth, filter });
 
 /*
   getDependencies(packagePath, filter, depth)

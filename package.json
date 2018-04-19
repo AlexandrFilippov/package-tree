@@ -3,14 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "archy": "^1.0.0",
+    "lodash.union": "^4.6.0",
+    "lodash.without": "^4.4.0",
     "read-installed": "^4.0.3",
-    "topiary": "^1.1.2"
+    "read-package-tree": "^5.1.6",
+    "semver": "^5.5.0",
+    "sorted-object": "^2.0.1"
   },
   "scripts": {
     "build": "tsc"
   },
   "devDependencies": {
+    "@types/lodash.union": "^4.6.3",
+    "@types/lodash.without": "^4.4.3",
     "@types/node": "^9.4.7",
+    "@types/npm-package-arg": "^5.1.0",
+    "npm-package-arg": "^6.1.0",
+    "path": "^0.12.7",
     "ts-node": "^5.0.1",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2"

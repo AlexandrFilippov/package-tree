@@ -1,37 +1,51 @@
-declare module 'read-installed' {
-    import ErrnoException = NodeJS.ErrnoException;
+declare module 'read-package-tree' {
+  import ErrnoException = NodeJS.ErrnoException;
 
-    function internal(where: string, options: object, callback: (er: ErrnoException, deps: IRootPackage) => void): void;
-    namespace internal {}
+  function internal(
+    path: string, callback: (
+      er: ErrnoException, physicalTree: IPhysicalTree) => void): void;
 
-    export = internal;
+  namespace internal {
+  }
+
+  export = internal;
 }
 
-declare module 'topiary' {
-    function internal(prepped: IPackageWithArrayDependencies, type: string, options: object): string;
-    namespace internal {}
-
-    export = internal;
+declare module 'path' {
+  export function relative(from: string, to: string): string;
 }
 
-interface IPackageDependencies {
-    [key: string]: IRootPackage
+declare module 'semver' {
+  export function satisfies(
+    version1: string, version2: string | null, range: boolean
+  ): boolean;
 }
 
-interface IPackageNode {
-    name: string;
-    version: string;
-    parent: IPackageNode | any;
+declare module 'sorted-object' {
+  export function sotredObject(pkg: object): object;
 }
 
-interface IRootPackage extends IPackageNode {
-    dependencies: IPackageDependencies;
+interface IPackageJson {
+  [key: string]: any;
+  name: string;
+  version: string;
+  dependencies?: {[key: string]: string};
+  devDependencies?: {[key: string]: string};
 }
 
-interface IPackageWithArrayDependencies extends IPackageNode {
-    dependencies: IPackageWithArrayDependencies[];
+interface IPhysicalTree {
+  [key: string]: any;
+  package: IPackageJson;
+  parent: IPhysicalTree | null;
+  children: IPhysicalTree[];
+  path: string;
+  realpath: string;
+  isTop?: boolean;
+  removed?: IPhysicalTree;
+  missingDeps?: IPackageJson;
+  missingDevDeps?: IPackageJson;
 }
 
-interface IFileExtensionConfig {
-    [key: string]: (data: IRootPackage, depth: number, filter: RegExp) => string;
+interface ITranslateTree extends IPackageJson {
+  dependencies: ITranslateTree;
 }
